@@ -1,2 +1,2 @@
-user1=kjgezezfefnelfnezfbnezklfbdzelkfbezofez
-user2=gvsfoesnfiesfiebfoeofbezgggs6541erg48er
+user1_token=ghp_XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+user2_token=ghp_YYYYYYYYYYYYYYYYYYYYYYYYYYYY

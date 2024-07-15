@@ -23,10 +23,10 @@ FICHIER_CONFIG=$(ls $REPERTOIRE_CONFIG | grep "^$USER_NAME")
 echo $FICHIER_CONFIG
 
 if [ -z "$FICHIER_CONFIG" ]; then
-    echo "Fichier de config non trouvé pour '$USER_NAME'"
+    echo "Configuration file not found '$USER_NAME'"
     exit 1
 elif [ $(echo $FICHIER_CONFIG | wc -w) -gt 1 ]; then
-    echo "Plusieurs fichiers de conf trouvés pour '$USER_NAME'"
+    echo "More than one configuration file found for this user '$USER_NAME'"
     exit 1
 else
     git config --global --unset-all user.name
