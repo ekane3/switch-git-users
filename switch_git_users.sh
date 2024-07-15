@@ -1,16 +1,18 @@
 #!bin/bash
-# Ce script permettra de changer les config git d'un utilisateur
-# Il accepte un paramètre: le numéro d'utilisateur
-# Usage: ./switch_git_user.sh perso
+#
+# Git User Switcher : This script helps switch git user for authentication 
+# with token in an environment where ssh keys arent allowed
+# 
+# Usage: ./switch_git_user.sh user1
 
 
-# Repertoire des fichiers config
+# Directory containing the git config files
 REPERTOIRE_CONFIG=~/.gitconfigs
 
-# Fichier des tokens Git
+# File containing the tokens
 FICHIER_TOKEN=~/.git_utils/.git_tokens
 
-# Vérifier la présence de l'argument passé au script
+# Verify the presence of the argument username
 if [ -z "$1" ]; then
     echo "Usage: $0 <user.name>"
     exit 1
@@ -39,7 +41,7 @@ else
     # Load token from the token file
     if [ -f "$FICHIER_TOKEN" ]; then
         source "$FICHIER_TOKEN"
-        TOKEN=${!USER_TOKEN} # !USER_TOKEN est un pointeur vers la valeur du token du user
+        TOKEN=${!USER_TOKEN} # !USER_TOKEN points to the value of user_token
        
         if [ -z "$TOKEN" ]; then
             echo "No token for this user '$USER_NAME'"
@@ -48,12 +50,18 @@ else
 
         # Get the existing remote url and and extract the repo name
         REMOTE_URL=$(git remote get-url origin)
-        REPO_NAME=$(echo $REMOTE_URL | sed -e 's|.*:||' -e 's|.*\/||' -e 's|\.git$||')
 
-        # Construct the new remote url with the token      
-        NEW_URL=$(echo $REMOTE_URL | sed -e "s|https://|https://${USER_NAME}:${TOKEN}@|")
-        git remote set-url origin "$NEW_URL"
-        echo "Switched to $(git config user.name) <$(git config user.email)> and updated remote URL"
+            # Check if credentials are already included
+            if [ "$REMOTE_URL" == *"${USER_NAME}:${TOKEN}"* ]; then
+                echo "Credentials are already included in the remote URL"
+            else
+                # Construct the new remote url with the token
+                NEW_URL=$(echo $REMOTE_URL | sed -e "s|https://.*@|https://${USER_NAME}:${TOKEN}@|")
+                
+                # Set the new URL
+                git remote set-url origin "$NEW_URL"
+                echo "Switched to $(git config user.name) <$(git config user.email)> and updated remote URL"
+            fi
         fi
     else
        echo "Token file not found"
