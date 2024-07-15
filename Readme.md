@@ -13,7 +13,7 @@ This repository contains a script to switch between multiple Git user configurat
 - Bash shell
 - Git
 - Configuration files for each user in `~/.gitconfigs/` : take a look [here](.gitconfigs/) 👀
-- Token file containing tokens for each user in `~/.git_utils/.git_tokens` : see format [here](.git_utils/.git_tokens) 👀
+- Token file containing tokens for each user in `~/.git_utils/.git_tokens` : see format [here](.git_utils/.git_tokens.tpl) 👀
 
 ## Installation
 
