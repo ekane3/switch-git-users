@@ -93,3 +93,11 @@ switch_git_user.sh perso
 git add .
 git commit -m "Your commit message"
 git push origin master
+```
+
+
+## Troubleshooting
+
+- Ensure that the token file is correctly formatted and contains the correct tokens.
+- Verify that the configuration files are present in the ``~/.gitconfigs/`` directory.
+- If you encounter URL format errors, check that the remote URL is correctly constructed without duplications.
